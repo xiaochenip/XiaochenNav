@@ -5,7 +5,7 @@
 ## 🌟 项目特点
 
 - **简约美观**：现代化的界面设计，采用玻璃拟态效果，视觉效果出色
-- **本地部署**：无需服务器，本地部署
+- **本地部署**：无需服务器，本地部署，安全可靠
 - **响应式布局**：适配不同屏幕尺寸，从手机到桌面设备都能良好显示
 - **分类清晰**：9个精心划分的分类，涵盖常用网站、AI工具、实用工具等
 - **智能搜索**：支持站内搜索和全网搜索，快速找到所需网站
@@ -42,7 +42,7 @@ XiaoNav/
 
 1. **克隆项目**
    ```bash
-   git clone https://github.com/yourusername/xiaonav.git
+   git clone https://gitee.com/xiaochenip/xiaochen-nav.git
    cd xiaonav
    ```
 2. **本地预览**
