@@ -8,6 +8,7 @@
 - **本地部署**：无需服务器，本地部署，安全可靠
 - **响应式布局**：适配不同屏幕尺寸，从手机到桌面设备都能良好显示
 - **分类清晰**：9个精心划分的分类，涵盖常用网站、AI工具、实用工具等
+- **二级分类**：支持子分类功能，更细致地组织网站内容
 - **智能搜索**：支持站内搜索和全网搜索，快速找到所需网站
 - **主题切换**：支持明暗两种主题，自动保存用户偏好
 - **点击排行**：实时统计网站点击量，展示日榜、周榜、月榜
@@ -45,6 +46,7 @@ XiaoNav/
    git clone https://gitee.com/xiaochenip/xiaochen-nav.git
    cd xiaonav
    ```
+
 2. **本地预览**
    - 直接在浏览器中打开 `index.html` 文件
    - 或使用本地服务器（推荐）：
@@ -54,6 +56,7 @@ XiaoNav/
      # 或使用Node.js
      npx http-server -p 8080
      ```
+
 3. **访问网站**
    打开浏览器访问 `http://localhost:8080`
 
@@ -63,6 +66,7 @@ XiaoNav/
 
 - 点击左侧边栏的分类图标或顶部导航栏的分类链接
 - 支持展开/收起侧边栏，优化空间使用
+- **二级分类**：部分分类支持子分类，点击子分类标签可快速切换查看
 
 ### 2. 搜索功能
 
@@ -99,18 +103,30 @@ XiaoNav/
 ```javascript
 const siteData = {
     categories: [
-        { id: '常用网站', name: '常用网站', icon: '🌐' },
-        { id: 'ai', name: 'AI工具集', icon: '🤖' },
+        {
+            id: "common", 
+            name: "常用网站", 
+            icon: "🌐", 
+            order: 1,
+            subcategories: [
+                { id: "common-work", name: "工作" },
+                { id: "common-social", name: "社交" },
+                { id: "common-media", name: "媒体" },
+                { id: "common-hot", name: "热点" }
+            ]
+        },
         // 其他分类...
     ],
     sites: [
         {
             id: 1,
-            title: '百度',
-            url: 'https://www.baidu.com',
-            description: '中国最大的搜索引擎',
-            category: '常用网站',
-            icon: ''
+            title: "百度",
+            description: "中国最大的搜索引擎",
+            url: "https://www.baidu.com/",
+            category: "common",
+            subcategory: "common-media",
+            icon: "https://f1.allesedv.com/16/baidu.com/favicon.ico",
+            order: 1
         },
         // 其他网站...
     ]
@@ -121,8 +137,9 @@ const siteData = {
 
 1. **添加网站**：编辑 `js/data.js` 文件，在 `sites` 数组中添加新网站
 2. **添加分类**：在 `categories` 数组中添加新分类
-3. **修改样式**：编辑 `css/style.css` 文件自定义样式
-4. **修改逻辑**：编辑 `js/main.js` 文件修改功能逻辑
+3. **添加子分类**：在分类对象中添加 `subcategories` 数组
+4. **修改样式**：编辑 `css/style.css` 文件自定义样式
+5. **修改逻辑**：编辑 `js/main.js` 文件修改功能逻辑
 
 ## 📞 联系我们
 
