@@ -1,0 +1,159 @@
+/* 全局样式 */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 自定义滚动条 */
+::--webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* 隐藏滚动条 */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* 卡片悬浮动画 */
+.card-hover {
+    transition: all 0.2s ease;
+}
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 左侧导航激活状态 */
+.nav-item {
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.nav-item:hover {
+    background-color: #f3f4f6;
+}
+.dark .nav-item:hover {
+    background-color: #374151;
+}
+.nav-item.active {
+    background-color: #eff6ff;
+    color: #3b82f6;
+}
+.dark .nav-item.active {
+    background-color: #1e3a8a;
+    color: #60a5fa;
+}
+
+/* 侧边栏宽度过渡 */
+aside {
+    transition: width 0.3s ease;
+}
+
+/* 主内容区边距过渡 */
+#mainContent {
+    transition: margin-left 0.3s ease;
+    margin-left: 0;
+}
+
+/* 导航项文字过渡 */
+.nav-item span {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.nav-item span.hidden {
+    opacity: 0;
+    transform: translateX(-10px);
+    pointer-events: none;
+    width: 0;
+}
+
+/* 搜索框样式 */
+.search-input {
+    transition: all 0.2s ease;
+}
+.search-input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 标签切换 */
+.tab-item {
+    transition: all 0.2s ease;
+    position: relative;
+}
+.tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #3b82f6;
+}
+
+/* 导航链接效果 */
+.nav-link {
+    position: relative;
+    padding: 0.5rem 0;
+}
+.nav-link:hover .nav-link-underline {
+    width: 100%;
+}
+
+/* 右侧卡片 */
+.sidebar-card {
+    transition: all 0.2s ease;
+}
+.sidebar-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 分类标题 */
+.category-title {
+    position: relative;
+    padding-left: 12px;
+}
+.category-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 16px;
+    background: #3b82f6;
+    border-radius: 2px;
+}
+
+/* 骨架屏 */
+.skeleton {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

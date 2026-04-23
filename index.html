@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>小辰导航</title>
+    <meta name="description" content="简洁清爽、实用高效的个人网址导航，一站式上网入口">
+    <meta name="keywords" content="为日常上网、学习办公、娱乐生活提供分类清晰、无广告、极速访问的网址集合页">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+
+    <!-- 主容器 -->
+    <div class="flex h-screen overflow-hidden gap-4">
+        <!-- 左侧边栏导航 -->
+        <aside class="w-16 h-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-r border-gray-200/50 dark:border-gray-700/50 flex flex-col items-center py-4 flex-shrink-0 z-40 transition-all duration-300 ease-in-out">
+            <!-- Logo -->
+            <div class="mb-6" id="logoContainer" style="height: 32px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                <a href="#" class="flex items-center justify-center">
+                    <img src="assets/logo.png" alt="小辰导航" class="w-10 h-10 rounded-xl object-contain transition-all duration-300 ease-out" id="logoImage">
+                </a>
+            </div>
+            
+            <!-- 导航菜单 -->
+            <nav id="leftNav" class="flex-1 w-full px-2 space-y-1 overflow-y-auto">
+                <!-- 动态生成 -->
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <div class="flex-1 overflow-y-auto" id="mainContent">
+            <!-- 顶部导航栏 -->
+            <header class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50 px-4 md:px-6 py-3 sticky top-0 z-30">
+                <div class="max-w-9xl mx-auto w-full">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">                        
+                        <!-- 左侧导航菜单 -->
+                        <nav class="flex flex-wrap items-center justify-start gap-2 sm:gap-4 md:gap-6">
+                            <a href="#" class="nav-link relative text-sm font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition px-2 py-1">
+                                首页
+                                <span class="nav-link-underline absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300"></span>
+                            </a>
+                            <a href="#" class="nav-link relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition px-2 py-1">
+                                网站投稿
+                                <span class="nav-link-underline absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300"></span>
+                            </a>
+                            <a href="#" class="nav-link relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition px-2 py-1">
+                                排行榜
+                                <span class="nav-link-underline absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300"></span>
+                            </a>
+                            <a href="#" class="nav-link relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition px-2 py-1">
+                                自定义网址
+                                <span class="nav-link-underline absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300"></span>
+                            </a>
+                            <a href="#" class="nav-link relative text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition px-2 py-1">
+                                关于
+                                <span class="nav-link-underline absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300"></span>
+                            </a>
+                        </nav>
+                        
+                        <!-- 右侧主题切换 -->
+                        <div class="flex items-center">
+                            <button id="themeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-105">
+                                <span class="dark:hidden">🌙</span>
+                                <span class="hidden dark:inline">☀️</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- 搜索栏 -->
+            <div class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50 px-4 md:px-6 py-6">
+                <div class="max-w-5xl mx-auto">
+                    <!-- 搜索模式切换 -->
+                    <div class="flex justify-center mb-4 space-x-6">
+                        <button class="tab-item active px-3 py-1.5 text-sm font-medium text-gray-900 dark:text-white" data-mode="site">站内搜索</button>
+                        <button class="tab-item px-3 py-1.5 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200" data-mode="web">全网搜索</button>
+                    </div>
+                    
+                    <!-- 搜索框 -->
+                    <div class="relative max-w-2xl mx-auto">
+                        <div class="flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-4 py-2.5">
+                            <input type="text" id="searchInput" 
+                                   placeholder="搜索工具、网站..." 
+                                   class="search-input flex-1 bg-transparent border-none outline-none text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400">
+                            <button id="searchBtn" class="ml-2 w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- 搜索引擎选择（仅在全网搜索时显示） -->
+                        <div id="searchEngineSelect" class="flex justify-center mt-2 space-x-4 text-xs text-gray-400 dark:text-gray-500 hidden">
+                            <label class="flex items-center cursor-pointer hover:text-blue-600">
+                                <input type="radio" name="searchEngine" value="baidu" checked class="mr-1">
+                                百度
+                            </label>
+                            <label class="flex items-center cursor-pointer hover:text-blue-600">
+                                <input type="radio" name="searchEngine" value="bing" class="mr-1">
+                                必应
+                            </label>
+                            <label class="flex items-center cursor-pointer hover:text-blue-600">
+                                <input type="radio" name="searchEngine" value="google" class="mr-1">
+                                Google
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 内容滚动区 -->
+            <div class="px-4 md:px-6 py-6 flex gap-6">
+                <!-- 中间内容区 -->
+                <div class="flex-1 min-w-0">
+                    <!-- 分类区块 -->
+                    <div id="categorySections">
+                        <!-- 动态生成分类区块 -->
+                    </div>
+                    
+                    <!-- 无结果提示 -->
+                    <div id="noResults" class="hidden text-center py-16">
+                        <div class="text-5xl mb-3">🔍</div>
+                        <h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">未找到相关工具</h3>
+                        <p class="text-gray-500 dark:text-gray-400 mt-1 text-sm">试试其他关键词吧</p>
+                    </div>
+                </div>
+
+                <!-- 右侧边栏 -->
+                <aside class="hidden xl:block w-72 flex-shrink-0 space-y-4 pt-6 sticky top-16 max-h-[calc(100vh-96px)] overflow-y-auto scrollbar-hide">
+                    <!-- 最新收录 -->
+                    <div class="sidebar-card bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 border border-gray-100/50 dark:border-gray-700/50">
+                        <h3 class="font-semibold text-gray-800 dark:text-white mb-3 flex items-center">
+                            <span class="mr-2">🆕</span>最新收录
+                        </h3>
+                        <ul id="latestSites" class="space-y-2">
+                            <!-- 动态生成 -->
+                        </ul>
+                    </div>
+                    
+                    <!-- 热门分类 -->
+                    <div class="sidebar-card bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 border border-gray-100/50 dark:border-gray-700/50">
+                        <h3 class="font-semibold text-gray-800 dark:text-white mb-3 flex items-center">
+                            <span class="mr-2">🔥</span>热门分类
+                        </h3>
+                        <div id="hotCategories" class="flex flex-wrap gap-2">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 点击排行榜 -->
+                    <div class="sidebar-card bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 border border-gray-100/50 dark:border-gray-700/50">
+                        <h3 class="font-semibold text-gray-800 dark:text-white mb-3 flex items-center">
+                            <span class="mr-2">🏆</span>点击排行
+                        </h3>
+                        <div class="mb-2 flex space-x-2">
+                            <button class="rank-tab active px-3 py-1 text-xs rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400" data-period="day">日榜</button>
+                            <button class="rank-tab px-3 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300" data-period="week">周榜</button>
+                            <button class="rank-tab px-3 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300" data-period="month">月榜</button>
+                        </div>
+                        <ul id="rankList" class="space-y-2">
+                            <!-- 动态生成 -->
+                        </ul>
+                    </div>
+                    
+                    <!-- 关于 -->
+                    <div class="sidebar-card bg-gradient-to-br from-blue-50/80 to-purple-50/80 dark:from-blue-900/30 dark:to-purple-900/30 backdrop-blur-sm rounded-xl p-4 border border-blue-100/50 dark:border-blue-800/50">
+                        <h3 class="font-semibold text-gray-800 dark:text-white mb-2">小辰导航</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">小辰导航是一个简约实用的网址导航平台，聚合常用搜索、工具网站、学习资源、影视娱乐、设计素材、开发文档等各类优质网址。界面干净无冗余，分类清晰易查找，致力于成为你打开浏览器的第一个主页，让上网更高效、更省心。</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">QQ：2062077505</p>
+                        <div class="text-xs text-gray-500 dark:text-gray-500">
+                            © 2026 小辰导航
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 hidden z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+
+
+    <!-- 数据文件 -->
+    <script src="js/data.js"></script>
+    <!-- 主逻辑 -->
+    <script src="js/main.js"></script>
+</body>
+</html>
