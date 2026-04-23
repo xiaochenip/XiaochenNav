@@ -1,11 +1,46 @@
 // 网站数据配置 - 可随时增删改
 const siteData = {
     categories: [
-        { id: "common", name: "常用网站", icon: "🌐", order: 1 },
-        { id: "ai-tools", name: "AI工具集", icon: "🤖", order: 2 },
+        {
+            id: "common", 
+            name: "常用网站", 
+            icon: "🌐", 
+            order: 1,
+            subcategories: [
+                { id: "common-work", name: "工作" },
+                { id: "common-social", name: "社交" },
+                { id: "common-media", name: "媒体" },
+                { id: "common-hot", name: "热点" }
+            ]
+        },
+        {
+            id: "ai-tools", 
+            name: "AI工具集", 
+            icon: "🤖", 
+            order: 2,
+            subcategories: [
+                { id: "ai-chat", name: "AI对话" },
+                { id: "ai-code", name: "AI编程" },
+                { id: "ai-design", name: "AI设计工具" },
+                { id: "ai-agent", name: "AI智能体" },
+                { id: "ai-image", name: "AI图像处理" }
+            ]
+        },
         { id: "utility", name: "实用工具", icon: "🔧", order: 3 },
         { id: "gallery", name: "图库壁纸", icon: "🖼️", order: 4 },
-        { id: "entertainment", name: "影音娱乐", icon: "🎮", order: 5 },
+        {
+            id: "entertainment", 
+            name: "影音娱乐", 
+            icon: "🎮", 
+            order: 5,
+            subcategories: [
+                { id: "entertainment-video", name: "影视专区" },
+                { id: "entertainment-music", name: "音乐专区" },
+                { id: "entertainment-anime", name: "动漫专区" },
+                { id: "entertainment-reading", name: "阅读专区" },
+                { id: "entertainment-game", name: "游戏专区" }
+            ]
+        },
         { id: "design", name: "设计灵感", icon: "✨", order: 6 },
         { id: "office", name: "办公学习", icon: "📚", order: 7 },
         { id: "life", name: "生活服务", icon: "🏠", order: 8 },
@@ -19,6 +54,7 @@ const siteData = {
             description: "中国最大的搜索引擎",
             url: "https://www.baidu.com/",
             category: "common",
+            subcategory: "common-media",
             icon: "https://f1.allesedv.com/16/baidu.com/favicon.ico",
             order: 1
         },
@@ -28,6 +64,7 @@ const siteData = {
             description: "全球最大的搜索引擎",
             url: "https://www.google.com/",
             category: "common",
+            subcategory: "common-media",
             icon: "https://f1.allesedv.com/16/google.com/favicon.ico",
             order: 2
         },
@@ -37,6 +74,7 @@ const siteData = {
             description: "全球最大的代码托管平台",
             url: "https://github.com/",
             category: "common",
+            subcategory: "common-work",
             icon: "https://f1.allesedv.com/16/github.com/favicon.ico",
             order: 3
         },
@@ -46,6 +84,7 @@ const siteData = {
             description: "中文问答社区",
             url: "https://www.zhihu.com/",
             category: "common",
+            subcategory: "common-social",
             icon: "https://f1.allesedv.com/16/zhihu.com/favicon.ico",
             order: 4
         },
@@ -57,6 +96,7 @@ const siteData = {
             description: "OpenAI 推出的对话式AI",
             url: "https://chat.openai.com/",
             category: "ai-tools",
+            subcategory: "ai-chat",
             icon: "https://f1.allesedv.com/16/openai.com/favicon.ico",
             order: 1
         },
@@ -66,6 +106,7 @@ const siteData = {
             description: "顶尖AI绘画工具",
             url: "https://www.midjourney.com/",
             category: "ai-tools",
+            subcategory: "ai-design",
             icon: "https://f1.allesedv.com/16/midjourney.com/favicon.ico",
             order: 2
         },
@@ -75,6 +116,7 @@ const siteData = {
             description: "深度求索AI助手",
             url: "https://chat.deepseek.com/",
             category: "ai-tools",
+            subcategory: "ai-chat",
             icon: "https://f1.allesedv.com/16/deepseek.com/favicon.ico",
             order: 3
         },
@@ -126,6 +168,7 @@ const siteData = {
             description: "哔哩哔哩视频网站",
             url: "https://www.bilibili.com/",
             category: "entertainment",
+            subcategory: "entertainment-video",
             icon: "https://f1.allesedv.com/16/bilibili.com/favicon.ico",
             order: 1
         },
@@ -135,6 +178,7 @@ const siteData = {
             description: "音乐 streaming 平台",
             url: "https://music.163.com/",
             category: "entertainment",
+            subcategory: "entertainment-music",
             icon: "https://f1.allesedv.com/16/music.163.com/favicon.ico",
             order: 2
         },

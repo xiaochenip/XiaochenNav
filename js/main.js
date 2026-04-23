@@ -291,53 +291,126 @@ function renderSites() {
     
     let html = "";
     
-    // 按分类分组
+    // 按分类和子分类分组
     const sitesByCategory = {};
     filtered.forEach(site => {
         if (!sitesByCategory[site.category]) {
-            sitesByCategory[site.category] = [];
+            sitesByCategory[site.category] = {};
         }
-        sitesByCategory[site.category].push(site);
+        const subcategory = site.subcategory || 'default';
+        if (!sitesByCategory[site.category][subcategory]) {
+            sitesByCategory[site.category][subcategory] = [];
+        }
+        sitesByCategory[site.category][subcategory].push(site);
     });
     
     // 按分类顺序渲染
     categories.forEach(cat => {
         const categorySites = sitesByCategory[cat.id];
-        if (categorySites && categorySites.length > 0) {
+        if (categorySites && Object.keys(categorySites).length > 0) {
             html += `
                 <div id="category-${cat.id}" class="mb-8 scroll-mt-8">
-                    <div class="flex items-center mb-4">
+                    <div class="flex items-center gap-4 mb-4 flex-wrap">
                         <h2 class="category-title text-lg font-semibold text-gray-800 dark:text-white">
                             ${cat.icon} ${cat.name}
                         </h2>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             `;
             
-            categorySites.forEach(site => {
-                const iconUrl = site.icon || getFaviconUrl(site.url);
+            // 检查是否有子分类
+            if (cat.subcategories && cat.subcategories.length > 0) {
+                // 渲染子分类标签（水平显示在一级分类右边）
                 html += `
-                    <a href="${site.url}" target="_blank" rel="noopener noreferrer" 
-                       class="card-hover group block bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 border border-gray-100/50 dark:border-gray-700/50 hover:border-blue-200/70 dark:hover:border-blue-800/70"
-                       onclick="recordClick(${site.id})"><div class="flex items-start space-x-3">
-                            <img src="${iconUrl}" alt="${site.title}" 
-                                 class="w-10 h-10 rounded-lg object-cover flex-shrink-0 bg-gray-100 dark:bg-gray-700"
-                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%239CA3AF\'%3E%3Cpath d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/%3E%3C/svg%3E'">
-                            <div class="flex-1 min-w-0">
-                                <h3 class="font-semibold text-gray-900 dark:text-white text-sm truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
-                                    ${escapeHtml(site.title)}
-                                </h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
-                                    ${escapeHtml(site.description)}
-                                </p>
-                            </div>
-                        </div>
-                    </a>
+                        <div class="flex flex-wrap gap-2">
                 `;
-            });
+                cat.subcategories.forEach((subcat, index) => {
+                    const hasSites = categorySites[subcat.id] && categorySites[subcat.id].length > 0;
+                    if (hasSites) {
+                        html += `
+                            <button data-category="${cat.id}" data-subcategory="${subcat.id}" class="subcategory-btn px-3 py-1 rounded-full text-sm ${index === 0 ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'} hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                                ${subcat.name}
+                            </button>
+                        `;
+                    }
+                });
+                html += `
+                        </div>
+                    </div>
+                `;
+                
+                // 按子分类渲染，默认只显示第一个子分类
+                cat.subcategories.forEach((subcat, index) => {
+                    const subcategorySites = categorySites[subcat.id];
+                    if (subcategorySites && subcategorySites.length > 0) {
+                        html += `
+                            <div id="subcategory-${subcat.id}" class="mb-6 ${index === 0 ? '' : 'hidden'}">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        `;
+                        
+                        subcategorySites.forEach(site => {
+                            const iconUrl = site.icon || getFaviconUrl(site.url);
+                            html += `
+                                <a href="${site.url}" target="_blank" rel="noopener noreferrer" 
+                                   class="card-hover group block bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 border border-gray-100/50 dark:border-gray-700/50 hover:border-blue-200/70 dark:hover:border-blue-800/70"
+                                   onclick="recordClick(${site.id})"><div class="flex items-start space-x-3">
+                                        <img src="${iconUrl}" alt="${site.title}" 
+                                             class="w-10 h-10 rounded-lg object-cover flex-shrink-0 bg-gray-100 dark:bg-gray-700"
+                                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%239CA3AF\'%3E%3Cpath d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/%3E%3C/svg%3E'">
+                                        <div class="flex-1 min-w-0">
+                                            <h3 class="font-semibold text-gray-900 dark:text-white text-sm truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
+                                                ${escapeHtml(site.title)}
+                                            </h3>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
+                                                ${escapeHtml(site.description)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            `;
+                        });
+                        
+                        html += `
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            } else {
+                // 没有子分类，直接渲染所有网站
+                html += `
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                `;
+                
+                Object.values(categorySites).forEach(siteList => {
+                    siteList.forEach(site => {
+                        const iconUrl = site.icon || getFaviconUrl(site.url);
+                        html += `
+                            <a href="${site.url}" target="_blank" rel="noopener noreferrer" 
+                               class="card-hover group block bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 border border-gray-100/50 dark:border-gray-700/50 hover:border-blue-200/70 dark:hover:border-blue-800/70"
+                               onclick="recordClick(${site.id})"><div class="flex items-start space-x-3">
+                                    <img src="${iconUrl}" alt="${site.title}" 
+                                         class="w-10 h-10 rounded-lg object-cover flex-shrink-0 bg-gray-100 dark:bg-gray-700"
+                                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%239CA3AF\'%3E%3Cpath d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\'/%3E%3C/svg%3E'">
+                                    <div class="flex-1 min-w-0">
+                                        <h3 class="font-semibold text-gray-900 dark:text-white text-sm truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
+                                            ${escapeHtml(site.title)}
+                                        </h3>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
+                                            ${escapeHtml(site.description)}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    });
+                });
+                
+                html += `
+                    </div>
+                `;
+            }
             
             html += `
-                    </div>
                 </div>
             `;
         }
@@ -345,11 +418,47 @@ function renderSites() {
     
     document.getElementById('categorySections').innerHTML = html;
     
+    // 绑定子分类点击事件
+    document.querySelectorAll('.subcategory-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const categoryId = this.dataset.category;
+            const subcategoryId = this.dataset.subcategory;
+            
+            // 切换子分类按钮样式
+            const categoryBtns = this.parentElement.querySelectorAll('.subcategory-btn');
+            categoryBtns.forEach(btn => {
+                btn.classList.remove('bg-blue-100', 'dark:bg-blue-900', 'text-blue-700', 'dark:text-blue-300');
+                btn.classList.add('bg-gray-100', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+            });
+            this.classList.remove('bg-gray-100', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+            this.classList.add('bg-blue-100', 'dark:bg-blue-900', 'text-blue-700', 'dark:text-blue-300');
+            
+            // 显示选中的子分类，隐藏其他子分类
+            const subcategoryElements = document.querySelectorAll(`#category-${categoryId} [id^="subcategory-"]`);
+            subcategoryElements.forEach(el => {
+                el.classList.add('hidden');
+            });
+            const targetElement = document.getElementById(`subcategory-${subcategoryId}`);
+            if (targetElement) {
+                targetElement.classList.remove('hidden');
+                // 滚动到子分类，考虑菜单栏高度
+                const rect = targetElement.getBoundingClientRect();
+                const navbarHeight = 64; // 菜单栏高度
+                const offset = rect.top + window.pageYOffset - navbarHeight - 20;
+                window.scrollTo({ top: offset, behavior: 'smooth' });
+            }
+        });
+    });
+    
     // 如果有特定分类，滚动到该分类
     if (currentCategory !== 'all') {
         const categoryElement = document.getElementById(`category-${currentCategory}`);
         if (categoryElement) {
-            categoryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // 滚动到分类，考虑菜单栏高度
+            const rect = categoryElement.getBoundingClientRect();
+            const navbarHeight = 64; // 菜单栏高度
+            const offset = rect.top + window.pageYOffset - navbarHeight - 20;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
         }
     } else {
         // 选择全部时，滚动到页面顶部
