@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站投稿 - 小辰导航</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+    <!-- 导航栏 -->
+    <header class="sticky top-0 z-30 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center py-4">
+                <!-- 左侧导航菜单 -->
+                <div class="flex items-center gap-6 flex-wrap">
+                    <a href="index.html" class="text-xl font-bold text-blue-600 dark:text-blue-400">小辰导航</a>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition relative group">
+                            首页
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="submit.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition relative group">
+                            网站投稿
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300"></span>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition relative group">
+                            排行榜
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="about.html" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition relative group">
+                            关于
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </nav>
+                </div>
+                <!-- 右侧主题切换 -->
+                <div class="flex items-center mt-4 md:mt-0">
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <svg id="sunIcon" class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <svg id="moonIcon" class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        <div class="glass-card p-8 mb-8">
+            <h1 class="text-3xl font-bold mb-6 text-center">网站投稿</h1>
+            <p class="text-lg mb-8 text-center text-gray-600 dark:text-gray-400">
+                提交您认为有价值的网站，经审核后会添加到小辰导航中
+            </p>
+            
+            <form id="submitForm" class="max-w-2xl mx-auto">
+                <div class="space-y-6">
+                    <div>
+                        <label for="siteTitle" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            网站标题 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="siteTitle" name="siteTitle" required
+                               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white">
+                    </div>
+                    
+                    <div>
+                        <label for="siteUrl" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            网站URL <span class="text-red-500">*</span>
+                        </label>
+                        <input type="url" id="siteUrl" name="siteUrl" required
+                               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white"
+                               placeholder="https://www.example.com">
+                    </div>
+                    
+                    <div>
+                        <label for="siteDescription" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            网站描述 <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="siteDescription" name="siteDescription" rows="3" required
+                                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white"
+                                  placeholder="请简要描述网站的功能和特点"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="siteCategory" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            分类 <span class="text-red-500">*</span>
+                        </label>
+                        <select id="siteCategory" name="siteCategory" required
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white">
+                            <option value="">请选择分类</option>
+                            <option value="common">常用网站</option>
+                            <option value="ai-tools">AI工具集</option>
+                            <option value="utility">实用工具</option>
+                            <option value="gallery">图库壁纸</option>
+                            <option value="entertainment">影音娱乐</option>
+                            <option value="design">设计灵感</option>
+                            <option value="office">办公学习</option>
+                            <option value="life">生活服务</option>
+                            <option value="resources">资源网站</option>
+                        </select>
+                    </div>
+                    
+                    <div id="subcategoryContainer" class="hidden">
+                        <label for="siteSubcategory" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            子分类
+                        </label>
+                        <select id="siteSubcategory" name="siteSubcategory"
+                                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white">
+                            <option value="">请选择子分类</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="siteIcon" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            网站图标（可选）
+                        </label>
+                        <input type="url" id="siteIcon" name="siteIcon"
+                               class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white"
+                               placeholder="https://example.com/favicon.ico">
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                            如不填写，系统将自动获取网站favicon
+                        </p>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                            提交网站
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="glass-card p-8">
+            <h2 class="text-2xl font-semibold mb-4 text-center">投稿须知</h2>
+            <div class="prose dark:prose-invert max-w-none">
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>请确保提交的网站内容健康、合法，不包含违法、色情、暴力等不良信息</li>
+                    <li>请确保网站可以正常访问，内容有一定的价值</li>
+                    <li>同一网站请勿重复提交</li>
+                    <li>提交的网站会经过审核，审核通过后会添加到导航中</li>
+                    <li>我们保留对提交网站的最终审核权</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-t border-gray-200 dark:border-gray-700 py-6">
+        <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                        © 2026 小辰导航. 保留所有权利.
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="index.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">首页</a>
+                    <a href="submit.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">网站投稿</a>
+                    <a href="about.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">关于</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">隐私政策</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm">使用条款</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 主题切换脚本 -->
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        
+        // 初始化主题
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        }
+        
+        // 主题切换事件
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        });
+        
+        // 子分类选项
+        const subcategories = {
+            'common': [
+                { id: 'common-work', name: '工作' },
+                { id: 'common-social', name: '社交' },
+                { id: 'common-media', name: '媒体' },
+                { id: 'common-hot', name: '热点' }
+            ],
+            'ai-tools': [
+                { id: 'ai-chat', name: 'AI对话' },
+                { id: 'ai-code', name: 'AI编程' },
+                { id: 'ai-design', name: 'AI设计工具' },
+                { id: 'ai-agent', name: 'AI智能体' },
+                { id: 'ai-image', name: 'AI图像处理' }
+            ],
+            'entertainment': [
+                { id: 'entertainment-video', name: '影视专区' },
+                { id: 'entertainment-music', name: '音乐专区' },
+                { id: 'entertainment-anime', name: '动漫专区' },
+                { id: 'entertainment-reading', name: '阅读专区' },
+                { id: 'entertainment-game', name: '游戏专区' }
+            ]
+        };
+        
+        // 分类选择事件
+        const categorySelect = document.getElementById('siteCategory');
+        const subcategoryContainer = document.getElementById('subcategoryContainer');
+        const subcategorySelect = document.getElementById('siteSubcategory');
+        
+        categorySelect.addEventListener('change', () => {
+            const selectedCategory = categorySelect.value;
+            if (subcategories[selectedCategory]) {
+                subcategoryContainer.classList.remove('hidden');
+                subcategorySelect.innerHTML = '<option value="">请选择子分类</option>';
+                subcategories[selectedCategory].forEach(subcat => {
+                    const option = document.createElement('option');
+                    option.value = subcat.id;
+                    option.textContent = subcat.name;
+                    subcategorySelect.appendChild(option);
+                });
+            } else {
+                subcategoryContainer.classList.add('hidden');
+                subcategorySelect.innerHTML = '<option value="">请选择子分类</option>';
+            }
+        });
+        
+        // 表单提交事件
+        document.getElementById('submitForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                title: document.getElementById('siteTitle').value,
+                url: document.getElementById('siteUrl').value,
+                description: document.getElementById('siteDescription').value,
+                category: document.getElementById('siteCategory').value,
+                subcategory: document.getElementById('siteSubcategory').value,
+                icon: document.getElementById('siteIcon').value
+            };
+            
+            // 保存到本地存储（实际项目中应该发送到服务器）
+            let submittedSites = JSON.parse(localStorage.getItem('submittedSites') || '[]');
+            submittedSites.push(formData);
+            localStorage.setItem('submittedSites', JSON.stringify(submittedSites));
+            
+            // 显示成功消息
+            alert('网站提交成功！我们会尽快审核并添加到导航中。');
+            
+            // 重置表单
+            this.reset();
+            subcategoryContainer.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
