@@ -1,4 +1,4 @@
-# 小辰导航（XiaoNav）
+# 小辰导航（ChenNav）
 
 一个简洁清爽、实用高效的个人网址导航网站，为日常上网、学习办公、娱乐生活提供分类清晰、无广告、极速访问的网址集合。
 
@@ -26,16 +26,20 @@
 ## 📁 项目结构
 
 ```
-XiaoNav/
+ChenNav/
 ├── index.html          # 主页面
+├── about.html          # 关于页面
+├── submit.html         # 网站投稿页面
 ├── css/
 │   └── style.css       # 自定义样式
 ├── js/
 │   ├── main.js         # 主逻辑
-│   └── data.js         # 网站数据
+│   ├── data.js         # 网站数据
+│   └── theme.js        # 主题切换
 ├── assets/
 │   ├── logo.png        # 网站logo
 │   └── logohen.png     # 展开状态logo
+├── LICENSE             # 许可证
 └── README.md           # 项目说明
 ```
 
@@ -43,10 +47,9 @@ XiaoNav/
 
 1. **克隆项目**
    ```bash
-   git clone https://gitee.com/xiaochenip/xiaochen-nav.git
+   git clone https://gitee.com/xiaochenip/chennav.git
    cd xiaonav
    ```
-
 2. **本地预览**
    - 直接在浏览器中打开 `index.html` 文件
    - 或使用本地服务器（推荐）：
@@ -56,7 +59,6 @@ XiaoNav/
      # 或使用Node.js
      npx http-server -p 8080
      ```
-
 3. **访问网站**
    打开浏览器访问 `http://localhost:8080`
 
@@ -88,6 +90,17 @@ XiaoNav/
 
 - 支持添加个人常用网站
 - 方便快速访问个人收藏
+
+### 6. 网站投稿
+
+- 用户可以提交新网站
+- 支持选择分类和子分类
+- 提交后保存在本地存储中
+
+### 7. 关于页面
+
+- 详细介绍项目信息
+- 展示所有功能特性
 
 ## 🎨 界面设计
 
@@ -144,7 +157,7 @@ const siteData = {
 ## 📞 联系我们
 
 - QQ：2062077505
-- 项目地址：<https://gitee.com/xiaochenip/xiaochen-nav.git>
+- 项目地址：<https://gitee.com/xiaochenip/chennav.git>
 
 ## 📄 许可证
 
